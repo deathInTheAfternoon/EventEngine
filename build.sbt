@@ -24,6 +24,12 @@ libraryDependencies += "com.mongodb.casbah" % "casbah_2.9.0-1" % "2.1.5.0"
 //Drools engine
 libraryDependencies += "org.drools" % "knowledge-api" % "5.4.0.Final"
 
+libraryDependencies += "com.sun.xml.bind" % "jaxb-xjc" % "2.2.5"
+
+libraryDependencies += "org.drools" % "drools-compiler" % "5.4.0.Final"
+
+libraryDependencies += "org.drools" % "drools-core" % "5.4.0.Final"
+
 resolvers += "Typesafe Snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
 
 //this also transitively brings in akka-actor of the same version.

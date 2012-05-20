@@ -8,15 +8,22 @@
 
 import akka.actor.{Actor, ActorSystem, Props}
 import akka.camel._
+import org.apache.camel.builder.RouteBuilder
 import org.apache.camel.component.amqp.AMQPComponent
 import org.apache.camel.component.jms.JmsConfiguration
+import org.apache.camel.{Exchange, Processor, CamelContext}
 import org.apache.qpid.client.AMQConnectionFactory
+import org.drools.builder.{ResourceType, KnowledgeBuilderFactory, KnowledgeBuilder}
+import org.drools.io.ResourceFactory
+import org.drools.runtime.StatelessKnowledgeSession
+import org.drools.{KnowledgeBaseFactory, KnowledgeBase}
 
 object TestAkkaCamel extends App {
 
+  //FYI: orders ! <order amount="100" currency="PLN" itemId="12345"/>
   class Orders extends Actor with Producer with Oneway {
     //def endpointUri = "file:C:/test.txt"
-    def endpointUri = "amqp:BURL:direct://businessX/businessQ/businessQ"
+    def endpointUri = "amqp:BURL:direct://businessX/outgoingQ/outgoingQ"  // todo: I've had to manually create the Q - why?
   }
 
   class BasketListener extends Consumer {
@@ -35,10 +42,12 @@ object TestAkkaCamel extends App {
     }
   }
 
+  createKnowledgeSession()
+
   val sys = ActorSystem("snapcracklepop")
-  //val orders = sys.actorOf(Props[Orders])
+  val orders = sys.actorOf(Props[Orders])
   //val myconsumer = sys.actorOf(Props[MyConsumer])
-  val basketListener = sys.actorOf(Props[BasketListener])
+  //val basketListener = sys.actorOf(Props[BasketListener])
 
   val connectionFactory = new AMQConnectionFactory
   // All the following are required...otherwise messages just wont appear.
@@ -50,6 +59,26 @@ object TestAkkaCamel extends App {
 
   CamelExtension(sys).context.addComponent("amqp", new AMQPComponent(new JmsConfiguration(connectionFactory)))
 
-  //orders ! <order amount="100" currency="PLN" itemId="12345"/>
+  // Manually setting up routes without using akka-camel for the moment.
+  val context: CamelContext = CamelExtension(sys).context
+  context.addRoutes(new RouteBuilder() {
+    def configure() {
+      from("amqp:BURL:direct://businessX//businessQ")
+        .process(new Processor {
+        def process(exchange: Exchange) {
+          println("Manually Configured Route Received: %s" format(exchange.getIn.getBody))
+        }
+      }).to(orders)
+    }
+  })
+
+  def createKnowledgeSession(): StatelessKnowledgeSession = {
+    var kBuilder: KnowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder()
+    kBuilder.add(ResourceFactory.newClassPathResource("test.drl"), ResourceType.DRL)
+    var kBase: KnowledgeBase = KnowledgeBaseFactory.newKnowledgeBase()
+    kBase.addKnowledgePackages(kBuilder.getKnowledgePackages)
+    var kSession: StatelessKnowledgeSession = kBase.newStatelessKnowledgeSession()
+    kSession
+  }
 }
 
