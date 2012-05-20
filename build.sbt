@@ -13,14 +13,16 @@ libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.6.4"
 
 libraryDependencies += "org.apache.camel" % "camel-core" % "2.9.2"
 
-// Apparently this is built for Apache Qpid and doesn't work with RabbitMQ.
+// This is a JMS client that translates to AMQP v0.91 so SHOULD work with Rabbit.
 libraryDependencies += "org.apache.camel" % "camel-amqp" % "2.9.2"
 
+// JMS Api for Camel JMS Component
 libraryDependencies += "javax.jms" % "jms" % "1.1"
 
-libraryDependencies += "com.rabbitmq" % "amqp-client" % "2.8.2"
-
 libraryDependencies += "com.mongodb.casbah" % "casbah_2.9.0-1" % "2.1.5.0"
+
+//Drools engine
+libraryDependencies += "org.drools" % "knowledge-api" % "5.4.0.Final"
 
 resolvers += "Typesafe Snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
 
