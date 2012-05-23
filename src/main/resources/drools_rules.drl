@@ -1,0 +1,10 @@
+pacakge com.thakur;
+imports org.apache.camel.Message;
+
+rule WriteOperations"
+when
+ $message: Message()
+then
+ //$message.setHeader("abc", "pissoff");
+ System.out.println("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzggggaagaga");
+end
