@@ -12,6 +12,6 @@ import org.drools.event.rule.{BeforeActivationFiredEvent, DefaultAgendaEventList
 object DroolsEventLogger extends DefaultAgendaEventListener {
   override def  beforeActivationFired(event: BeforeActivationFiredEvent){
     val rule: Rule = event.getActivation.getRule
-    Console.print(event.getClass.getSimpleName)
+    Console.println(event.getClass.getSimpleName)
   }
 }

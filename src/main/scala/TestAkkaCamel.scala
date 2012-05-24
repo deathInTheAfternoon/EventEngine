@@ -8,25 +8,17 @@
 
 import akka.actor.{Actor, ActorSystem, Props}
 import akka.camel._
-import akka.util.Duration
-import java.rmi.registry.Registry
 import javax.naming.Context
 import org.apache.camel.builder.RouteBuilder
-//import org.apache.camel.component.amqp.AMQPComponent
-//import org.apache.camel.component.jms.JmsConfiguration
-import org.apache.camel.impl.DefaultCamelContext
-import org.apache.camel.util.jndi.JndiContext
-import org.apache.camel.{Exchange, Processor, CamelContext}
-//import org.apache.qpid.client.AMQConnectionFactory
+import org.apache.camel.{Message, Exchange, Processor, CamelContext}
+import org.drools.command.{Command, CommandFactory}
+import org.drools.runtime.StatefulKnowledgeSession
+import org.drools.{KnowledgeBaseFactory, KnowledgeBase}
 import org.drools.builder.{ResourceType, KnowledgeBuilderFactory, KnowledgeBuilder}
-import org.drools.event.rule.{BeforeActivationFiredEvent, DefaultAgendaEventListener}
 import org.drools.grid.GridNode
 import org.drools.grid.impl.GridImpl
 import org.drools.io.ResourceFactory
-import org.drools.runtime.StatelessKnowledgeSession
-import org.drools.{KnowledgeBaseFactory, KnowledgeBase}
 import org.springframework.context.support.ClassPathXmlApplicationContext
-import akka.util.duration._
 
 object TestAkkaCamel extends App {
   startSpring()
@@ -65,26 +57,33 @@ object TestAkkaCamel extends App {
       from("spring-amqp:businessX:businessQ:businessQ?type=direct&autodelete=false")
         .process(new Processor {
         def process(exchange: Exchange) {
-          println("Manually Configured Route Received: %s" format(exchange.getIn.getBody))
+          //todo: Dangerous, manual conversion to String, for now
+          var m: Command[_] = CommandFactory.newInsert(exchange.getIn.getBody(classOf[String]))
+          var far: Command[_] = CommandFactory.newFireAllRules
+          var cmds: java.util.List[Command[_]] = new java.util.ArrayList[Command[_]]
+          cmds.add(m)
+          cmds.add(far)
+
+          exchange.getIn.setBody(CommandFactory.newBatchExecution(cmds))
         }
-      }).to("drools:node/ksession?action=insertMessage")
+      }).to("drools:node/ksession?action=execute")
     }
   })
 
   // todo: we have to kSession.dispose. Also previous experiences suggest we may have to use StatefulSession instead?
-  def createKnowledgeSession(): StatelessKnowledgeSession = {
+  def createKnowledgeSession(): StatefulKnowledgeSession = {
     var kBuilder: KnowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder()
-    kBuilder.add(ResourceFactory.newClassPathResource("drools_rules.drl"), ResourceType.DRL)
+    kBuilder.add(ResourceFactory.newClassPathResource("KBExpertise.drl"), ResourceType.DRL)
     var kBase: KnowledgeBase = KnowledgeBaseFactory.newKnowledgeBase()
     kBase.addKnowledgePackages(kBuilder.getKnowledgePackages)
-    var kSession: StatelessKnowledgeSession = kBase.newStatelessKnowledgeSession()
+    var kSession: StatefulKnowledgeSession = kBase.newStatefulKnowledgeSession()
     kSession.addEventListener(DroolsEventLogger)
+
     kSession
   }
 
-  def configureGridContext(ksession: StatelessKnowledgeSession) = {
+  def configureGridContext(ksession: StatefulKnowledgeSession) = {
     var grid = new GridImpl()
-    //grid.addService(org.drools.grid.service.directory.WhitePages.class, new WhitePagesImpl())
     var gridNode: GridNode = grid.createGridNode("node")
     // the default registry is a JNDIRegistry - from looking at akka-camel code.
     var r1: org.apache.camel.impl.PropertyPlaceholderDelegateRegistry = CamelExtension(sys).context.getRegistry() .asInstanceOf[org.apache.camel.impl.PropertyPlaceholderDelegateRegistry]
@@ -97,3 +96,24 @@ object TestAkkaCamel extends App {
 
 }
 
+// ----------------------------------------------------------------
+// DOMAIN MODEL - without these the rules will (silently) fail to compile.
+
+case class Someone(name:String, age:Int)
+
+case class Car(someone:Someone, model:String, year:Int, color:Color)
+
+case class Color(name:String)
+
+object Color {
+  val red = Color("red")
+  val blue = Color("blue")
+  val green = Color("green")
+  val black = Color("black")
+}
+
+case class Address(street:String, town:String, country:String)
+
+case class Home(someone:Someone, address:Option[Address])
+
+case class InformationRequest(someone:Someone, message:String)
