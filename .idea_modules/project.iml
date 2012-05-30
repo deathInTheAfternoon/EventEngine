@@ -26,7 +26,9 @@
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/main_2.9.1-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/api_2.9.1-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/commons-httpclient-3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-collections/commons-collections/jars/commons-collections-3.2.1.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/classfile_2.9.1-0.11.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/scala_2.9.1/sbt_0.11.2/com.cavorite/sbt-avro/jars/sbt-avro-0.1.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/compile_2.9.1-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/jline-0.9.94.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/persist_2.9.1-0.11.2.jar!/" />
@@ -35,7 +37,10 @@
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/incremental-compiler_2.9.1-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/commons-codec-1.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/io_2.9.1-0.11.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.6.3.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/completion_2.9.1-0.11.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.velocity/velocity/jars/velocity-1.7.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/commons-lang/commons-lang/jars/commons-lang-2.6.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/run_2.9.1-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/lib/jansi.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/lib/scala-compiler.jar!/" />
@@ -50,15 +55,21 @@
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/ivy-2.2.0.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/task-system_2.9.1-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/sbt_2.9.1-0.11.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.avro/avro/jars/avro-1.6.1.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/control_2.9.1-0.11.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.thoughtworks.paranamer/paranamer/jars/paranamer-2.3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.jackson/jackson-mapper-asl/jars/jackson-mapper-asl-1.8.6.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/launcher-interface_2.9.1-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/lib/jline.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.codehaus.jackson/jackson-core-asl/jars/jackson-core-asl-1.8.6.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/ivy_2.9.1-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/sbinary_2.9.0-0.4.0.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/tasks_2.9.1-0.11.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.xerial.snappy/snappy-java/bundles/snappy-java-1.0.4.1.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/xsbti/interface-0.11.2.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/scala_2.9.1/sbt_0.11.2/com.github.mpeltonen/sbt-idea/jars/sbt-idea-1.0.0.jar!/" />
           <root url="jar://$USER_HOME$/.sbt/boot/scala-2.9.1/org.scala-tools.sbt/sbt/0.11.2/classpath_2.9.1-0.11.2.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.avro/avro-compiler/jars/avro-compiler-1.6.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

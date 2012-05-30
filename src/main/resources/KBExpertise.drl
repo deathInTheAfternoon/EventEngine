@@ -1,5 +1,6 @@
 package net.nthakur.model;
-import com.nthakur.Someone;
+import net.nthakur.model.DomainEvent;
+import net.nthakur.model.Someone;
 
 dialect "mvel"
 
@@ -7,6 +8,13 @@ import java.util.LinkedList;
 global String str
 
 // --------------------------------------------------------------
+
+rule "incoming"
+    when
+        $de: DomainEvent()
+    then
+        System.out.println("Fact found with header  " + $de.header.eventType + " and payload " + $de.payload)
+end
 
 rule "who is a perv"
   when

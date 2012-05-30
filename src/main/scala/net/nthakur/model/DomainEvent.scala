@@ -20,3 +20,28 @@ case class Payload(contents: String)
 
 // a JSON String.
 case class DomainEvent(header: EventHeader, payload: Payload)
+
+
+// ----------------------------------------------------------------
+// DOMAIN MODEL - without these the rules will (silently) fail to compile.
+
+case class Someone(name:String, age:Int)
+
+case class Car(someone:Someone, model:String, year:Int, color:Color)
+
+case class Color(name:String)
+
+object Color {
+  val red = Color("red")
+  val blue = Color("blue")
+  val green = Color("green")
+  val black = Color("black")
+}
+
+case class Address(street:String, town:String, country:String)
+
+case class Home(someone:Someone, address:Option[Address])
+
+case class InformationRequest(someone:Someone, message:String)
+
+case class DomainEventOld(message:String, price:Double)
