@@ -1,0 +1,22 @@
+{
+    "namespace": "dummy.avro",
+    "type": "record",
+    "name": "DomainEventAvro",
+    "fields": [
+        {"name": "header", "type":
+            {
+              "namespace": "dummy.avro",
+              "type": "record",
+              "name": "HeaderAvro",
+              "fields": [
+                  {"name": "eventType", "type": "string"},
+                  {"name": "instanceId", "type": "string"},
+                  {"name": "source", "type": "string"},
+                  {"name": "occurrenceTime", "type": "long"},
+                  {"name": "detectionTime", "type": "long"}
+              ]
+            }
+        },
+        {"name": "payload", "type": "string"}
+    ]
+}

@@ -32,10 +32,21 @@ libraryDependencies += "org.drools" % "drools-camel" % "5.4.0.Final"
 // Needed for drools-camel
 libraryDependencies += "org.drools" % "drools-grid-impl" % "5.4.0.Final" intransitive()
 
+//--------------------------------Avro
+seq( sbtavro.SbtAvro.avroSettings : _*)
+
+//Put source where IntelliJ can see it 'src/main/java' instead of 'targe/scr_managed'.
+javaSource in sbtavro.SbtAvro.avroConfig <<= (sourceDirectory in Compile)(_ / "java")
+
+// deps for generated Java classes
+libraryDependencies += "org.apache.avro" % "avro" % "1.6.3"
+
+//--------------------------------End Avro
+
 resolvers += "Typesafe Snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
 
 //this also transitively brings in akka-actor of the same version.
-libraryDependencies += "com.typesafe.akka" % "akka-camel" % "2.1-20120522-000812"
+libraryDependencies += "com.typesafe.akka" % "akka-camel" % "2.1-20120529-002605"
 
 //we need these JVM options so QPid client can talk to RabbitMQ
 javaOptions in run += "-Dqpid.amqp.version=0-91"

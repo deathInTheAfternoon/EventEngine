@@ -1,3 +1,5 @@
+package com.nthakur
+
 import org.drools.definition.rule.Rule
 import org.drools.event.rule.{BeforeActivationFiredEvent, DefaultAgendaEventListener}
 
@@ -10,7 +12,7 @@ import org.drools.event.rule.{BeforeActivationFiredEvent, DefaultAgendaEventList
  */
 
 object DroolsEventLogger extends DefaultAgendaEventListener {
-  override def  beforeActivationFired(event: BeforeActivationFiredEvent){
+  override def beforeActivationFired(event: BeforeActivationFiredEvent) {
     val rule: Rule = event.getActivation.getRule
     Console.println(event.getClass.getSimpleName)
   }

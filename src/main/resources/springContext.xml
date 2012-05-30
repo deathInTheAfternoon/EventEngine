@@ -8,7 +8,7 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 
-    <bean id="tommy" class="Person">
+    <bean id="tommy" class="com.nthakur.Person">
         <!-- collaborators and configuration for this bean go here -->
     </bean>
 
