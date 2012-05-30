@@ -43,5 +43,3 @@ case class Address(street:String, town:String, country:String)
 case class Home(someone:Someone, address:Option[Address])
 
 case class InformationRequest(someone:Someone, message:String)
-
-case class DomainEventOld(message:String, price:Double)
